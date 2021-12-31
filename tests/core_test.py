@@ -2,46 +2,89 @@ import unittest
 
 from core import match_cases
 
-board1 = [
-    [1, 1, 1],
-    [0, 0, 1],
-    [1, 1, 0]
-]
-board2 = [
-    [1, 0, 1],
-    [0, 0, 0],
-    [1, 1, 0]
-]
-board3 = [
-    [1, 0, 1],
-    [0, 1, 0],
-    [0, 0, 0]
-]
-board4 = [
-    [1, 0, 1],
-    [0, 1, 0],
-    [0, 1, 0]
-]
+matchs = {
+    "row": {
+        "1" : [
+            [1, 1, 1],
+            [0, 0, 1],
+            [1, 1, 0]
+        ],
+        "2": [
+            [1, 0, 1],
+            [0, 0, 0],
+            [1, 1, 0]
+        ],
+        "3": [
+            [1, 0, 1],
+            [0, 1, 0],
+            [0, 0, 0]
+        ],
+        "4": [
+            [1, 0, 1],
+            [0, 1, 0],
+            [0, 1, 0]
+        ]
+    },
+    "column": {
+        "1" : [
+            [1, 0, 1],
+            [1, 0, 1],
+            [1, 1, 0]
+        ],
+        "2": [
+            [1, 0, 1],
+            [0, 0, 1],
+            [1, 0, 0]
+        ],
+        "3": [
+            [0, 1, 1],
+            [1, 0, 1],
+            [0, 0, 1]
+        ],
+        "4": [
+            [1, 0, 1],
+            [0, 1, 0],
+            [0, 1, 0]
+        ]
+    },
+}
+
 
 class TestMatchCases(unittest.TestCase):
     def __init__(self, methodName: str = ...) -> None:
         super().__init__(methodName=methodName)
 
     def test_match_row(self):
-        match = match_cases.MatchCase(board1)
+        match = match_cases.MatchCase(matchs["row"]["1"])
         self.assertEqual(match.match_row(1), 0)
         
-        match = match_cases.MatchCase(board2)
+        match = match_cases.MatchCase(matchs["row"]["2"])
         self.assertEqual(match.match_row(0), 1)
 
-        match = match_cases.MatchCase(board3)
+        match = match_cases.MatchCase(matchs["row"]["3"])
         self.assertEqual(match.match_row(0), 2)
 
-        match = match_cases.MatchCase(board4)
+        match = match_cases.MatchCase(matchs["row"]["4"])
         self.assertEqual(match.match_row(1), None)
 
-        match = match_cases.MatchCase(board4)
+        match = match_cases.MatchCase(matchs["row"]["4"])
         self.assertEqual(match.match_row(0), None)
+
+    def test_match_column(self):
+        match = match_cases.MatchCase(matchs["column"]["1"])
+        self.assertEqual(match.match_column(1), 0)
+        
+        match = match_cases.MatchCase(matchs["column"]["2"])
+        self.assertEqual(match.match_column(0), 1)
+
+        match = match_cases.MatchCase(matchs["column"]["3"])
+        self.assertEqual(match.match_column(1), 2)
+
+        match = match_cases.MatchCase(matchs["column"]["4"])
+        self.assertEqual(match.match_column(1), None)
+
+        match = match_cases.MatchCase(matchs["column"]["4"])
+        self.assertEqual(match.match_column(0), None)
 
 
 if __name__ == '__main__':
