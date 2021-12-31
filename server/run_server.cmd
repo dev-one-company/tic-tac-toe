@@ -2,4 +2,7 @@
 CLS
 
 SET FLASK_APP=main.py
-flask run
+SET FLASK_ENV=development
+SET FLASK_DEBUG=1
+
+flask run --port 5000
