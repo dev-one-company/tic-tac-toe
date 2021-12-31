@@ -1,5 +1,3 @@
-from typing import List
-
 class MatchCase(object):
     def __init__(self, board=[]) -> None:
         super().__init__()
