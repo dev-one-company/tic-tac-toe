@@ -20,6 +20,22 @@ def start():
            }, 500
 
 
+@app.route('/board/<board_id>', methods=['GET'])
+def get_board(board_id: str):
+    board = Board.Board()
+
+    try:
+        data = board.get_board(board_id)
+
+        return {
+            'data': data
+        }, 200
+    except Exception as e:
+        return {
+            'message': str(e)
+        }, 500
+
+
 @app.route('/mark_board_position', methods=['POST'])
 def mark_board_position():
     body = request.json
