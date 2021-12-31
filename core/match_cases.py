@@ -14,21 +14,35 @@ class MatchCase(object):
         self.board = board
         self.boardLength = len(board)
 
-    def match_row(self, findFor) -> int | None:
+    def match_row(self, match) -> int | None:
         """returns the index of matched row or None if not match any row"""
-
 
         for i in range(self.boardLength):
             matchCount = 0
-            currentRowIndex = i
-            for j in range(len(self.board[i])):
-                if self.board[i][j] != findFor:
+            for j in range(self.boardLength):
+                if self.board[i][j] != match:
                     break
                 else:
                     matchCount += 1
             
             if matchCount == 3:
-                return currentRowIndex
+                return i
+
+        return None
+
+    def match_column(self, match) -> int | None:
+        """returns the index of matched column or None if not match any row"""
+
+        for i in range(self.boardLength):
+            matchCount = 0
+            for j in range(self.boardLength):
+                if self.board[j][i] != match:
+                    break
+                else:
+                    matchCount += 1
+            
+            if matchCount == self.boardLength:
+                return i
 
         return None
 
