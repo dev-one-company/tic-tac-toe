@@ -52,3 +52,31 @@ class Board:
             self.connection.commit()
         except Exception:
             raise Exception("Cannot mark, try again later")
+
+    def get_board(self, board_id: str) -> list:
+        try:
+            print(board_id)
+            cursor = self.connection.cursor()
+            cursor.execute("SELECT * FROM boards WHERE board_id = ?", (str(board_id),))
+
+            boards = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise Exception("Cannot get board, try again later")
+
+        if len(boards) == 0:
+            raise Exception("This board not exist")
+
+        board_matrix = [
+            [None, None, None],
+            [None, None, None],
+            [None, None, None],
+        ]
+
+        for board in boards:
+            row = board[4]
+            column = board[3]
+            value = board[2]
+            board_matrix[row][column] = value
+
+        return board_matrix
