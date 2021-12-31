@@ -63,7 +63,24 @@ matchs = {
             [1, 1, 0],
             [0, 1, 0]
         ],
-    }
+    },
+    "diagonal_top_right_to_bottom_left": {
+        "1" : [
+            [1, 0, 1],
+            [1, 1, 0],
+            [1, 0, 0]
+        ],
+        "2" : [
+            [0, 1, 0],
+            [1, 0, 0],
+            [0, 1, 1]
+        ],
+        "3" : [
+            [1, 0, 0],
+            [1, 1, 0],
+            [0, 1, 0]
+        ],
+    },
 }
 
 
@@ -115,6 +132,19 @@ class TestMatchCases(unittest.TestCase):
 
         match = match_cases.MatchCase(matchs["diagonal_top_left_to_bottom_right"]["3"])
         self.assertEqual(match.diagonal_top_left_to_bottom_right(1), False)
+
+    def test_diagonal_top_right_to_bottom_left(self):
+        match = match_cases.MatchCase(matchs["diagonal_top_right_to_bottom_left"]["1"])
+        self.assertEqual(match.diagonal_top_right_to_bottom_left(1), True)
+        
+        match = match_cases.MatchCase(matchs["diagonal_top_right_to_bottom_left"]["2"])
+        self.assertEqual(match.diagonal_top_right_to_bottom_left(0), True)
+
+        match = match_cases.MatchCase(matchs["diagonal_top_right_to_bottom_left"]["3"])
+        self.assertEqual(match.diagonal_top_right_to_bottom_left(0), False)
+
+        match = match_cases.MatchCase(matchs["diagonal_top_right_to_bottom_left"]["3"])
+        self.assertEqual(match.diagonal_top_right_to_bottom_left(1), False)
 
 
 if __name__ == '__main__':
