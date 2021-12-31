@@ -1,3 +1,3 @@
 @echo off
 cls
-python -m tests.core_test -v
+python -m unittest discover --pattern=tests\*.py -v

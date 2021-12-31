@@ -1,4 +1,4 @@
-from repository import Board
+from repositories import Board
 
 from flask import Flask, request
 

@@ -1,11 +1,24 @@
 import sqlite3
 import uuid
 
+"""SQL TO CREATE TABLE
+
+CREATE TABLE boards (
+    id       STRING (255) PRIMARY KEY
+                          UNIQUE
+                          NOT NULL,
+    board_id STRING (255) NOT NULL,
+    value    STRING (4)  DEFAULT '-1',
+    posX     INTEGER (4)  NOT NULL,
+    posY     INTEGER (4)  NOT NULL
+);
+"""
+
 
 class Board:
     def __init__(self):
         try:
-            self.connection = sqlite3.connect("database.db")
+            self.connection = sqlite3.connect("C:\\Users\\marco\\AppData\\Local\\Temp\\database.db")
         except Exception:
             raise Exception("Cannot connect to database")
 
