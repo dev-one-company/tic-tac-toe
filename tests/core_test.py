@@ -105,16 +105,16 @@ class TestMatchCases(unittest.TestCase):
 
     def test_match_diagonal_top_left_to_bottom_right(self):
         match = match_cases.MatchCase(matchs["diagonal_top_left_to_bottom_right"]["1"])
-        self.assertEqual(match.diagonal_top_left_to_bottom_right(1), 0)
+        self.assertEqual(match.diagonal_top_left_to_bottom_right(1), True)
         
         match = match_cases.MatchCase(matchs["diagonal_top_left_to_bottom_right"]["2"])
-        self.assertEqual(match.diagonal_top_left_to_bottom_right(0), 1)
+        self.assertEqual(match.diagonal_top_left_to_bottom_right(0), True)
 
         match = match_cases.MatchCase(matchs["diagonal_top_left_to_bottom_right"]["3"])
-        self.assertEqual(match.diagonal_top_left_to_bottom_right(0), None)
+        self.assertEqual(match.diagonal_top_left_to_bottom_right(0), False)
 
         match = match_cases.MatchCase(matchs["diagonal_top_left_to_bottom_right"]["3"])
-        self.assertEqual(match.diagonal_top_left_to_bottom_right(1), None)
+        self.assertEqual(match.diagonal_top_left_to_bottom_right(1), False)
 
 
 if __name__ == '__main__':
