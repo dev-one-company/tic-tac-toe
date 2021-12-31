@@ -46,10 +46,17 @@ class MatchCase(object):
 
         return None
 
-    def diagonal_top_left_to_bottom_right(self, match) -> True | False:
+    def diagonal_top_left_to_bottom_right(self, match) -> bool:
         for i in range(self.boardLength):
             if self.board[i][i] != match:
                 return False
 
+        return True
+    
+    def diagonal_top_right_to_bottom_left(self, match) -> bool:
+        for i in range(self.boardLength):
+            if self.board[i][self.boardLength - 1 - i] != match:
+                return False
+        
         return True
 
