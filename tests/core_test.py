@@ -81,6 +81,13 @@ matchs = {
             [0, 1, 0]
         ],
     },
+    "without_solution": {
+        "1": [
+            [1, 0, 1],
+            [0, 0, 1],
+            [1, 1, 0]
+        ]
+    }
 }
 
 
@@ -145,4 +152,10 @@ class TestMatchCases(unittest.TestCase):
 
         match = match_cases.MatchCase(matchs["diagonal_top_right_to_bottom_left"]["3"])
         self.assertEqual(match.diagonal_top_right_to_bottom_left(1), False)
+
+    def test_without_solution(self):
+        match = match_cases.MatchCase(matchs["without_solution"]["1"])
+        self.assertEqual(match.without_solution(0), True)
+        self.assertEqual(match.without_solution(1), True)
+
 

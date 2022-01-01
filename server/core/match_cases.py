@@ -22,7 +22,7 @@ class MatchCase(object):
                     break
                 else:
                     match_count += 1
-            
+
             if match_count == 3:
                 return i
 
@@ -50,10 +50,24 @@ class MatchCase(object):
                 return False
 
         return True
-    
+
     def diagonal_top_right_to_bottom_left(self, match) -> bool:
         for i in range(self.boardLength):
             if self.board[i][self.boardLength - 1 - i] != match or self.board[i][self.boardLength - 1 - i] is None:
                 return False
-        
+
+        return True
+
+    def without_solution(self, match):
+        for i in range(self.boardLength):
+            for j in range(self.boardLength):
+                if self.board[i][j] is None:
+                    return False
+
+        if (self.match_row(match) is None and
+                self.match_column(match) is None and
+                not self.diagonal_top_left_to_bottom_right(match) and
+                not self.diagonal_top_right_to_bottom_left(match)):
+            return True
+
         return True
