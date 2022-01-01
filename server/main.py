@@ -74,11 +74,17 @@ def mark_board_position():
                }, 400
 
     board = Board.Board()
+    board_service = BoardService.BoardService(board_id)
+
+    try:
+        board.get_board(board_id)
+    except Exception as e:
+        return {
+            'message': str(e)
+        }, 400
 
     try:
         board.mark_board_position(row, column, board_id, player)
-
-        board_service = BoardService.BoardService(board_id)
 
         has_match = board_service.check_match(player)
 
@@ -96,6 +102,11 @@ def mark_board_position():
         return {
                    'message': str(e)
                }, 400
+    finally:
+        if board_service.is_without_solution():
+            return {
+                       'message': 'WITHOUT SOLUTION'
+                   }, 400
 
 
 if __name__ == '__main__':

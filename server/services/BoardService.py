@@ -10,7 +10,6 @@ class BoardService:
     def check_match(self, player) -> dict | None:
 
         game_board = self.board.get_board(self.board_id)
-        print(game_board)
         match_cases = MatchCase(game_board)
 
         match_row = match_cases.match_row(player)
@@ -42,3 +41,13 @@ class BoardService:
             }
 
         return None
+
+    def is_without_solution(self):
+        board = self.board.get_board(self.board_id)
+        match_cases = MatchCase(board)
+
+        if match_cases.without_solution():
+            self.board.delete_board(self.board_id)
+            return True
+
+        return False

@@ -93,3 +93,11 @@ class Board:
             board_matrix[row][column] = value
 
         return board_matrix
+
+    def delete_board(self, board_id: str):
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute("DELETE FROM boards WHERE board_id = ?", (board_id,))
+            self.connection.commit()
+        except Exception:
+            raise Exception("Cannot delete this board")
