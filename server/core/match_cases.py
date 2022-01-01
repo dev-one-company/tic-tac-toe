@@ -58,16 +58,21 @@ class MatchCase(object):
 
         return True
 
-    def without_solution(self, match):
+    def without_solution(self):
         for i in range(self.boardLength):
             for j in range(self.boardLength):
                 if self.board[i][j] is None:
                     return False
 
-        if (self.match_row(match) is None and
-                self.match_column(match) is None and
-                not self.diagonal_top_left_to_bottom_right(match) and
-                not self.diagonal_top_right_to_bottom_left(match)):
+        def without_player_solution(player) -> bool:
+            if (self.match_row(player) is None and
+                    self.match_column(player) is None and
+                    not self.diagonal_top_left_to_bottom_right(player) and
+                    not self.diagonal_top_right_to_bottom_left(player)):
+                return True
+            return False
+
+        if without_player_solution(1) and without_player_solution(0):
             return True
 
-        return True
+        return False

@@ -86,7 +86,12 @@ matchs = {
             [1, 0, 1],
             [0, 0, 1],
             [1, 1, 0]
-        ]
+        ],
+        "2": [
+            [1, 0, 1],
+            [1, 0, 1],
+            [1, 1, 0]
+        ],
     }
 }
 
@@ -155,7 +160,9 @@ class TestMatchCases(unittest.TestCase):
 
     def test_without_solution(self):
         match = match_cases.MatchCase(matchs["without_solution"]["1"])
-        self.assertEqual(match.without_solution(0), True)
-        self.assertEqual(match.without_solution(1), True)
+        self.assertEqual(match.without_solution(), True)
+        match = match_cases.MatchCase(matchs["without_solution"]["2"])
+        self.assertEqual(match.without_solution(), False)
+
 
 
