@@ -1,4 +1,5 @@
 from repositories import Board
+from services import BoardService
 
 from flask import Flask, request
 
@@ -28,12 +29,12 @@ def get_board(board_id: str):
         data = board.get_board(board_id)
 
         return {
-            'data': data
-        }, 200
+                   'data': data
+               }, 200
     except Exception as e:
         return {
-            'message': str(e)
-        }, 500
+                   'message': str(e)
+               }, 500
 
 
 @app.route('/mark_board_position', methods=['POST'])
@@ -76,6 +77,18 @@ def mark_board_position():
 
     try:
         board.mark_board_position(row, column, board_id, player)
+
+        board_service = BoardService.BoardService(board_id)
+
+        has_match = board_service.check_match(player)
+
+        if has_match is not None:
+            return {
+                       'message': 'Win',
+                       'win_type': has_match['name'],
+                       'pos': has_match['pos']
+                   }, 200
+
         return {
                    'message': "marked"
                }, 201
@@ -83,3 +96,7 @@ def mark_board_position():
         return {
                    'message': str(e)
                }, 400
+
+
+if __name__ == '__main__':
+    app.run(port=5000, host='0.0.0.0', debug=True)

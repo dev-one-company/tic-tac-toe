@@ -1,6 +1,6 @@
 import unittest
 
-from core import match_cases
+from server.core import match_cases
 
 matchs = {
     "row": {
