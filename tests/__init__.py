@@ -11,6 +11,7 @@ if __name__ == '__main__':
     suite.addTest(TestMatchCases("test_match_column"))
     suite.addTest(TestMatchCases("test_match_diagonal_top_left_to_bottom_right"))
     suite.addTest(TestMatchCases("test_diagonal_top_right_to_bottom_left"))
+    suite.addTest(TestMatchCases("without_solution"))
 
     suite.addTest(TestBoardRepository("test_create"))
     suite.addTest(TestBoardRepository("test_get_board"))
