@@ -36,8 +36,7 @@ class Board:
                         )
                     """, (board_id, column_id, column, row))
                     self.connection.commit()
-        except Exception as e:
-            print("Exception ", e)
+        except Exception:
             return None
 
         return board_id
@@ -68,13 +67,11 @@ class Board:
 
     def get_board(self, board_id: str) -> list:
         try:
-            print(board_id)
             cursor = self.connection.cursor()
             cursor.execute("SELECT * FROM boards WHERE board_id = ?", (str(board_id),))
 
             boards = cursor.fetchall()
         except Exception as e:
-            print(e)
             raise Exception("Cannot get board, try again later")
 
         if len(boards) == 0:

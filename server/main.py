@@ -32,8 +32,8 @@ def get_board(board_id: str):
         data = board.get_board(board_id)
 
         return {
-                   'data': data
-               }, 200
+            'board': data
+        }, 200
     except Exception as e:
         return {
                    'message': str(e)
@@ -47,12 +47,12 @@ def delete_board(board_id: str):
     try:
         board.delete_board(board_id)
         return {
-            'message': 'Board deleted'
-        }, 200
+                   'message': 'Board deleted'
+               }, 200
     except Exception as e:
         return {
-            'message': str(e)
-        }, 400
+                   'message': str(e)
+               }, 400
 
 
 @app.route('/mark_board_position', methods=['POST'])
@@ -88,7 +88,7 @@ def mark_board_position():
         board_id = str(body['board_id'])
     except KeyError:
         return {
-                   'message': "please inform: 'row', 'column', 'player']"
+                   'message': "please inform: 'row', 'column', 'player'"
                }, 400
 
     board = Board()
@@ -98,8 +98,8 @@ def mark_board_position():
         board.get_board(board_id)
     except Exception as e:
         return {
-            'message': str(e)
-        }, 400
+                   'message': str(e)
+               }, 400
 
     try:
         board.mark_board_position(row, column, board_id, player)
@@ -107,11 +107,17 @@ def mark_board_position():
         has_match = board_service.check_match(player)
 
         if has_match is not None:
+            board.delete_board(board_id)
             return {
-                       'message': 'Win',
+                       'message': 'WIN',
                        'win_type': has_match['name'],
-                       'pos': has_match['pos']
+                       'pos': has_match['pos'],
+                       'player': player
                    }, 200
+        elif board_service.is_without_solution():
+            return {
+                       'message': 'WITHOUT SOLUTION'
+                   }, 400
 
         return {
                    'message': "marked"
@@ -120,8 +126,3 @@ def mark_board_position():
         return {
                    'message': str(e)
                }, 400
-    finally:
-        if board_service.is_without_solution():
-            return {
-                       'message': 'WITHOUT SOLUTION'
-                   }, 400
