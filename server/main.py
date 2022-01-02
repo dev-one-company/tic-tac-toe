@@ -1,14 +1,17 @@
-from repositories import Board
-from services import BoardService
+from .repositories.Board import Board
+from .services import BoardService
+
+from flask_cors import CORS
 
 from flask import Flask, request
 
 app = Flask(__name__)
+CORS(app, resources={r"*": {"origins": "*"}})
 
 
 @app.route('/start', methods=['POST'])
 def start():
-    board = Board.Board()
+    board = Board()
     board_id = board.create()
 
     if board_id is not None:
@@ -23,7 +26,7 @@ def start():
 
 @app.route('/board/<board_id>', methods=['GET'])
 def get_board(board_id: str):
-    board = Board.Board()
+    board = Board()
 
     try:
         data = board.get_board(board_id)
@@ -35,6 +38,21 @@ def get_board(board_id: str):
         return {
                    'message': str(e)
                }, 500
+
+
+@app.route("/delete/<board_id>", methods=['DELETE'])
+def delete_board(board_id: str):
+    board = Board()
+
+    try:
+        board.delete_board(board_id)
+        return {
+            'message': 'Board deleted'
+        }, 200
+    except Exception as e:
+        return {
+            'message': str(e)
+        }, 400
 
 
 @app.route('/mark_board_position', methods=['POST'])
@@ -73,7 +91,7 @@ def mark_board_position():
                    'message': "please inform: 'row', 'column', 'player']"
                }, 400
 
-    board = Board.Board()
+    board = Board()
     board_service = BoardService.BoardService(board_id)
 
     try:
@@ -107,4 +125,3 @@ def mark_board_position():
             return {
                        'message': 'WITHOUT SOLUTION'
                    }, 400
-
